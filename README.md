@@ -1,7 +1,7 @@
 _tics.js
 ========
 
-This is a simple helper JavaScript library for writing web analytics client side code. It adds support for basic page tracking and also event tracking for form fields, buttons and links.
+This is a simple JavaScript helper library for writing web analytics client side code. It adds support for basic page tracking and also event tracking for form fields, buttons and links.
 
 **_tics.js** is intended to give you a head start with web analytics and it supports the Google Universal Analytics JavaScript library (https://developers.google.com/analytics/devguides/collection/analyticsjs/) out of the box. There is a "ga provider" included in the library, written as a separate module. It can easily be replaced by a custom provider using your favorite web analytics library.
 
@@ -86,4 +86,15 @@ _tics.functions.add('getValue', function (elm, provider) {
     provider('send', 'hello world');
     provider('send', 'my custom function');
 }, true);
+```
+
+```javascript
+_tics.functions.add('myOverrideOfGetValue', function (elm) {
+	var func = _tics.functions.get('getValue');
+
+	// returns a json object {data: string, isProvisioned : true/false }
+	var result = func(elm);
+
+	return result.data + '-mysuffix';
+});
 ```
