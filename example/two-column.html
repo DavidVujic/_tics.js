@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link href="two-column.css" rel="stylesheet" />
+        <title>an example</title>
+	</head>
+<body>
+    <input type="hidden" id="account-for-analytics" value="my-little-example" />
+    <input type="hidden" id="domain-for-analytics" value="my-domain.se" />
+
+    <div id="wrap">
+        <div id="header">
+            <h1>My Logo</h1>
+            <a href="#">Just a link</a>
+        </div>
+
+        <div id="nav" data-section="Navigation">
+            <ul>
+                <li data-item><a name="menubutton1" href="/subpage1/">Option 1</a></li>
+                <li data-item><a href="/subpage2/">Option 2</a></li>
+            </ul>
+        </div>
+
+        <div id="main" data-section="Column 1">
+            <h2>Column 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit... <a href="#">Hello world</a></p>
+            <p>
+
+                <label for="firstname">First name</label><br />
+                <input type="text" id="firstname" name="firstname" />
+                <br />
+
+                <label for="lastname">Last name</label><br />
+                <input type="text" id="lastname" name="lastname" />
+                <br />
+
+                <label for="amount">Amount</label><br />
+                <input type="text" id="amount" name="amount" value="100" />
+                <br />
+
+                <label for="field-type">Type</label><br />
+                <input type="text" id="field-type" name="field-type" />
+
+            </p>
+        </div>
+        <div id="sidebar" data-section="Column 2">
+            <h2>Column 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</p>
+            <ul>
+                <li data-item><a name="Link1" href="/page1/">Link 1</a></li>
+                <li data-item><a name="Link2" href="/page2/">Link 2</a></li>
+            </ul>
+        </div>
+
+        <div id="footer">
+            <p>Footer</p>
+            <div class="log-container logger"></div>
+        </div>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="_tics.min.js"></script>
+	<script src="_tics.fake.js"></script>
+    <script>
+    	(function ($) {
+
+    		var decorateElements = function () {
+    			$('#lastname').attr('data-val-analyze-custom', 'getValue');
+	            $('#amount').attr('data-val-analyze-custom', 'getRelativeChange');
+	            $('#amount').attr('data-val-original-value', $('#amount').val());
+	            $('[data-section]').find('a').attr('data-val-analyze-custom', 'getItemInSection');
+
+	            $('#field-type').attr('data-val-analyze-custom', 'getType');
+    		};
+
+    		var disableExampleLinks = function () {
+				$('a').on('click', function (e) {
+	                return false;
+	            });
+    		};
+
+	        $(document).ready(function () {
+	            decorateElements();
+	            disableExampleLinks();
+
+	            // this example use a fake implementation of the Google Analytics script
+				window.ga = _tics.fake;
+
+	            _tics.functions.add('getType', function (elm) {
+	                window.ga('send', 'hello world');
+	                window.ga('send', 'my custom function');
+	            }, true);
+
+	            _tics.gaProvider.init({
+	                account: $('#account-for-analytics').val(),
+	                domain: $('#domain-for-analytics').val()
+	            });
+
+	            _tics.init(_tics.gaProvider);
+
+	            _tics.page();
+	            _tics.events();
+	        });
+		}(jQuery));
+    </script>
+</body>
+</html>

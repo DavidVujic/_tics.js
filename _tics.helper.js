@@ -1,6 +1,6 @@
 /*global window:true */
 
-var _tics = analytics || {};
+var _tics = _tics || {};
 
 _tics.helper = (function () {
 	'use strict';
