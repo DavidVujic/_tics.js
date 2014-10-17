@@ -29,17 +29,24 @@ _tics.events();
 
 ##The "could we just do this?" scenario
 If you want to grab the actual value of a specific form field, decorate your element with an attribute:
+```html
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getValue" />
+```
 
 Decorate your element with the following attribute if you want to get the relative change in a numeric field:
+```html
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getRelativeChange" data-val-original-value="100" />
+```
 
 The function will return "higher", "lower" or "same" when comparing the changes with the original value.
 
 When you want to track which item in a list of items users have clicked, decorate your element with:
+```html
 <a name="my-menu-item" href="/mypage/" data-val-analyze-custom="getItemInSection">Item 1</a>
+```
 
 and the containers:
+```html
 <div data-section="Column 2">
     <ul>
         <li data-item>
@@ -47,6 +54,7 @@ and the containers:
         </li>
     </ul>
 </div>
+```
 
 ##The "extra special for you" scenario
 The **getValue**, **getRelativeChange** and **getItemInSection** functions comes with **_tics.js** out of the box. Add your custom function by appending them to the library. Use your favorite library for traversing the DOM if you like.
