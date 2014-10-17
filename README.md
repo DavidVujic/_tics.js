@@ -33,7 +33,7 @@ If you want to grab the actual value of a specific form field, decorate your ele
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getValue" />
 ```
 
-Decorate your element with the following attribute if you want to get the relative change in a numeric field:
+Decorate your element with the following attributes if you want to get the relative change in a numeric field:
 ```html
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getRelativeChange" data-val-original-value="100" />
 ```
@@ -45,11 +45,6 @@ When you want to track which item in a list of items users have clicked, decorat
 <a name="my-menu-item" href="/mypage/" data-val-analyze-custom="getItemInSection">Item 1</a>
 ```
 
-This usage is for the event tracking features of **_tics.js**:
-```javascript
-_tics.events();
-```
-
 and decorate the containers with data attributes (data-section and data-item):
 ```html
 <div data-section="Column 2">
@@ -59,6 +54,11 @@ and decorate the containers with data attributes (data-section and data-item):
         </li>
     </ul>
 </div>
+```
+
+This usage is for the event tracking features of **_tics.js**:
+```javascript
+_tics.events();
 ```
 
 ##The "extra special for you" scenario
