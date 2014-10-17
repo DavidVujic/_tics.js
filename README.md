@@ -65,9 +65,8 @@ _tics.events();
 The **getValue**, **getRelativeChange** and **getItemInSection** functions are included in **_tics.js**. Add your custom function by appending them to the library. Use your favorite library for traversing the DOM if you like.
 
 ```javascript
-_tics.functions.add('getType', function (elm) {
-	window.ga('send', 'hello world');
-	window.ga('send', 'my custom function');
+_tics.functions.add('getMyCustomValue', function (elm) {
+	return $('my-selector').val();
 });
 ```
 
@@ -84,7 +83,7 @@ If you want to override or hijack one of the existing functions, just call the a
 
 ```javascript
 _tics.functions.add('getValue', function (elm, provider) {
-    window.ga('send', 'hello world');
-    window.ga('send', 'my custom function');
-});
+    provider('send', 'hello world');
+    provider('send', 'my custom function');
+}, true);
 ```
