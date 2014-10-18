@@ -8,21 +8,25 @@ var _tics = (function () {
 		provider.trackPage();
 	};
 
+	var trackEvent = function (e) {
+		provider.track(helper.evTarget(e), helper.ev(e));
+	};
+
 	var trackEvents = function () {
 		var fields = helper.get('input, select, textarea');
 		var links = helper.get('a');
 		var buttons = helper.get('button');
 
 		helper.addListeners(fields, 'change', function (e) {
-			provider.track(this, helper.ev(e));
+			trackEvent(e);
 		});
 
 		helper.addListeners(links, 'click', function (e) {
-			provider.track(this, helper.ev(e));
+			trackEvent(e);
 		});
 
 		helper.addListeners(buttons, 'click', function (e) {
-			provider.track(this, helper.ev(e));
+			trackEvent(e);
 		});
 	};
 
@@ -34,6 +38,6 @@ var _tics = (function () {
 	return {
 		init: initialize,
 		page: trackPage,
-		events: trackEvents
+		events: trackEvents,
 	};
 }());

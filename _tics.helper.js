@@ -17,6 +17,16 @@ _tics.helper = (function () {
 		return e;
 	};
 
+	var getEventTarget = function (e) {
+		var evt = getEvent(e);
+
+		if (!e) {
+			return evt.srcElement;	
+		}
+
+		return evt.target;
+	};
+
 	var addListenerFor = function (el, eventName, handler) {
 		var elmType = el.getAttribute('type');
 
@@ -120,6 +130,7 @@ _tics.helper = (function () {
 	return {
 		get: getBy,
 		ev: getEvent,
+		evTarget: getEventTarget,
 		addListeners: addListenersFor,
 		getClosest: getClosestElement,
 		createUrlBy: createUrl,
