@@ -5,6 +5,8 @@ var _tics = _tics || {};
 _tics.gaProvider = (function () {
 	'use strict';
 
+	var isInitialized = false;
+
 	var ga = null;
 	var helper = null;
 	var functions = null;
@@ -29,6 +31,10 @@ _tics.gaProvider = (function () {
 	};
 
 	var sendTrackingFor = function (elm, ev) {
+		if (!isInitialized) {
+			return;
+		}
+
 		var url = helper.createUrlBy(elm);
 		var category = elm.tagName;
 		var action = ev.type;
@@ -49,11 +55,19 @@ _tics.gaProvider = (function () {
 	};
 	
 	var setDefaults = function () {
+		if (!isInitialized) {
+			return;
+		}
+
 		ga('create', account, domain);
 		ga('send', 'pageview');
 	};
 
 	var initialize = function (gaAccount) {
+		if (!gaAccount || !gaAccount.account || !gaAccount.domain) {
+			return;
+		}
+
 		ga = window.ga;
 		helper = _tics.helper;
 		functions = _tics.functions;
@@ -61,9 +75,7 @@ _tics.gaProvider = (function () {
 		account = gaAccount.account;
 		domain = gaAccount.domain;
 
-		if (!account || !domain) {
-			return;
-		}
+		isInitialized = true;
 	};
 
 	return {
