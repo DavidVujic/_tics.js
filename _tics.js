@@ -12,25 +12,7 @@ var _tics = (function () {
 		provider.track(helper.evTarget(e), helper.ev(e));
 	};
 
-	var trackEvents = function () {
-		var fields = helper.get('input, select, textarea');
-		var links = helper.get('a');
-		var buttons = helper.get('button');
-
-		helper.addListeners(fields, 'change', function (e) {
-			trackEvent(e);
-		});
-
-		helper.addListeners(links, 'click', function (e) {
-			trackEvent(e);
-		});
-
-		helper.addListeners(buttons, 'click', function (e) {
-			trackEvent(e);
-		});
-	};
-
-	var addCustomEvent = function (selector, action) {
+	var addEvent = function (selector, action) {
 		if(!selector || selector.length === 0) {
 			return;
 		}
@@ -50,6 +32,12 @@ var _tics = (function () {
 		});
 	};
 
+	var trackEvents = function () {
+		addEvent('input, select, textarea', 'change');
+		addEvent('a', 'click');
+		addEvent('button', 'click');
+	};
+
 	var initialize = function (analyticsProvider) {
 		provider = analyticsProvider;
 		helper = _tics.helper;
@@ -59,6 +47,6 @@ var _tics = (function () {
 		init: initialize,
 		page: trackPage,
 		events: trackEvents,
-		customEvent: addCustomEvent
+		customEvent: addEvent
 	};
 }());
