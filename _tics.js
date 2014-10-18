@@ -30,6 +30,18 @@ var _tics = (function () {
 		});
 	};
 
+	var addCustomEvent = function (selector, action) {
+		var elements = helper.get(selector);
+
+		if (!elements || elements.length === 0) {
+			return;
+		}
+
+		helper.addListeners(elements, action, function (e) {
+			trackEvent(e);
+		});
+	};
+
 	var initialize = function (analyticsProvider) {
 		provider = analyticsProvider;
 		helper = _tics.helper;
@@ -39,5 +51,6 @@ var _tics = (function () {
 		init: initialize,
 		page: trackPage,
 		events: trackEvents,
+		customEvent: addCustomEvent
 	};
 }());
