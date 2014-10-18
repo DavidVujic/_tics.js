@@ -41,6 +41,13 @@
 
                 <label for="field-type">Type</label><br />
                 <input type="text" id="field-type" name="field-type" />
+                <br/>
+
+                <label for="field-like-js">Likes JavaScript</label><br />
+                <select id="field-like-js" name="field-like-js">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option> 
+                </select>
 
             </p>
         </div>
@@ -104,6 +111,9 @@
 
 	            _tics.page();
 	            _tics.events();
+
+                
+                _tics.customEvent('select', 'focus');
 	        });
 		}(jQuery));
     </script>

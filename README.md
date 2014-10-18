@@ -100,3 +100,9 @@ _tics.functions.add('myOverrideOfGetValue', function (elm) {
 	return result.data + '-mysuffix';
 });
 ```
+
+Add any event not covered by the built in features, by calling the customEvent function passing a selector and the event action:
+
+```javascript
+_tics.customEvent('select', 'focus');
+```

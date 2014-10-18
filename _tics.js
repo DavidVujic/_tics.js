@@ -31,6 +31,14 @@ var _tics = (function () {
 	};
 
 	var addCustomEvent = function (selector, action) {
+		if(!selector || selector.length === 0) {
+			return;
+		}
+
+		if(!action || action.length === 0) {
+			return;
+		}
+
 		var elements = helper.get(selector);
 
 		if (!elements || elements.length === 0) {
