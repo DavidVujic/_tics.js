@@ -64,6 +64,7 @@
     <script src="..\_tics.min.js"></script>
 	<script src="_tics.fake.js"></script>
     <script>
+    /*global _tics: true */
     	(function ($) {
 
     		var decorateElements = function () {
@@ -76,7 +77,7 @@
     		};
 
     		var disableExampleLinks = function () {
-				$('a').on('click', function (e) {
+				$('a').on('click', function () {
 	                return false;
 	            });
     		};
@@ -89,8 +90,9 @@
 				window.ga = _tics.fake;
 
 	            _tics.functions.add('getType', function (elm) {
+
 	                window.ga('send', 'hello world');
-	                window.ga('send', 'my custom function');
+	                window.ga('send', elm.type);
 	            }, true);
 
 	            _tics.gaProvider.init({
