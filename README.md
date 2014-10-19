@@ -29,7 +29,7 @@ _tics.page();
 _tics.events();
 ```
 
-##The "could we just do this?" scenario
+##The "couldn't you just do this?" scenario
 If you want to grab the actual value of a specific form field, decorate your element with an attribute (data-val-analyze-custom):
 ```html
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getValue" />

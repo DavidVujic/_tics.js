@@ -83,36 +83,45 @@
 	            $('#field-type').attr('data-val-analyze-custom', 'getType');
     		};
 
-    		var disableExampleLinks = function () {
+    		var disableExampleLinksForThisDemo = function () {
 				$('a').on('click', function () {
 	                return false;
 	            });
     		};
 
 	        $(document).ready(function () {
-	            decorateElements();
-	            disableExampleLinks();
+	            // this demo decorates the elements using JavaScript instead of adding attributes in the html code.
+                decorateElements();
+	            
+                disableExampleLinksForThisDemo();
 
-	            // this example use a fake implementation of the Google Analytics script
+	            // this example use a fake implementation of the Google Analytics script,
+                // a real world example would have a script tag for the real script.
 				window.ga = _tics.fake;
 
+                // add a custom function and disable the default event handling, by passing the true parameter.
 	            _tics.functions.add('getType', function (elm) {
 
 	                window.ga('send', 'hello world');
 	                window.ga('send', elm.type);
 	            }, true);
 
+                // initialize the Google Analytics provider with required data.
 	            _tics.gaProvider.init({
 	                account: $('#account-for-analytics').val(),
 	                domain: $('#domain-for-analytics').val()
 	            });
 
+                // initialize _tics with the selected provider
 	            _tics.init(_tics.gaProvider);
 
+                // enable default page tracking
 	            _tics.page();
+
+                // enable event tracing for the change and click events of form fields, links and buttons.
 	            _tics.events();
 
-                
+                // add your custom event
                 _tics.customEvent('select', 'focus');
 	        });
 		}(jQuery));
