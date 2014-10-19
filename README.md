@@ -3,9 +3,7 @@ _tics.js
 
 This is a simple JavaScript helper library for writing web analytics client side code. It supports basic page tracking and also event tracking for form fields, buttons and links.
 
-**_tics.js** is intended to give you a head start with web analytics and it supports the Google Universal Analytics JavaScript library out of the box. (https://developers.google.com/analytics/devguides/collection/analyticsjs/) 
-
-There is a "ga provider" included in the library, written as a separate module. It can easily be replaced by a custom provider using your favorite web analytics library.
+**_tics.js** is intended to give you a head start with web analytics and it supports the Google Universal Analytics JavaScript library out of the box. Included in the library is a Google Analytics provider, written as a separate module. It can easily be replaced by a custom provider consuming your favorite web analytics tool.
 
 #Usage#
 
