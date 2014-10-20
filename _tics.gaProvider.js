@@ -47,7 +47,7 @@ _tics.gaProvider = (function () {
 				return;
 			}
 			
-			url = helper.appendToUrl(url, result.data);	
+			url = helper.appendToUrl(url, result.data);
 		}
 
 		ga('send', 'pageview', url);

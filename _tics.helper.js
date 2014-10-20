@@ -89,7 +89,69 @@ _tics.helper = (function () {
 		return str.lastIndexOf(suffix) === (str.length - suffix.length);
 	};
 
+	var isTag = function (elm, tag) {
+		if (!elm || !elm.tagName) {
+			return false;
+		}
+
+		return elm.tagName.toLowerCase() === tag.toLowerCase();
+	};
+
+	var isImage = function (elm) {
+		return isTag(elm, 'img');
+	};
+
+	var isLink = function (elm) {
+		return isTag(elm, 'a');
+	};
+
+	var getValueForImage = function (elm) {
+		if (isImage(elm) && hasAttribute(elm, 'alt')) {
+			return elm.getAttribute('alt');
+		}
+
+		return null;
+	};
+
+	var getValueForLink = function (elm) {
+		var child;
+
+		if (!elm.firstChild) {
+			return null;
+		}
+
+		child = elm.firstChild;
+
+		if (child.nodeType === 3) {
+			return child.nodeValue;
+		}
+
+		if (isImage(child)) {
+			return getValueForImage(child);
+		}
+
+		return null;
+	};
+
 	var getValue = function (elm) {
+		var val = null;
+
+		if (isLink(elm)) {
+			val = getValueForLink(elm);
+		}
+
+		if (isImage(elm)) {
+			val = getValueForImage(elm);
+
+			if (!val && isLink(elm.parentNode)) {
+				elm = elm.parentNode;
+			}
+		}
+
+		if (val && val.length > 0) {
+			return val;
+		}
+
 		if (elm.getAttribute('name')) {
 			return elm.getAttribute('name');
 		}
