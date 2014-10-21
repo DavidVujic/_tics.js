@@ -79,12 +79,12 @@ _tics.functions.add('getType', function (elm) {
 }, true);
 ```
 
-If you want to override or hijack one of the existing functions, just call the add function and use the same name as one of the built in functions. If you want to grab the current provider, the callback function will provide you with it as a second parameter.
+If you want to override or hijack one of the existing functions, just call the add function and use the same name as one of the built in functions. If you want to grab the current analytics tool, the callback function will provide you with it as a second parameter.
 
 ```javascript
-_tics.functions.add('getValue', function (elm, provider) {
-    provider('send', 'hello world');
-    provider('send', 'my custom function');
+_tics.functions.add('getValue', function (elm, analyticsTool) {
+    analyticsTool('send', 'hello world');
+    analyticsTool('send', 'my custom function');
 }, true);
 ```
 
