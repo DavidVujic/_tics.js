@@ -40,14 +40,18 @@ _tics.gaProvider = (function () {
 		var action = ev.type;
 		var label = helper.getValueFrom(elm);
 		
-		var result = runCustomFunction(elm);
+		var result = runCustomFunction(elm, ga);
 
 		if (result) {
 			if(result.isProvisioned) {
 				return;
 			}
-			
-			url = helper.appendToUrl(url, result.data);
+
+			if (result.isPartialData) {
+				url = helper.appendToUrl(url, result.data);	
+			} else {
+				url = result.data;
+			}
 		}
 
 		ga('send', 'pageview', url);

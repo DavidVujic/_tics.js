@@ -195,6 +195,7 @@ _tics.helper = (function () {
 		evTarget: getEventTarget,
 		addListeners: addListenersFor,
 		getClosest: getClosestElement,
+		getCurrentUrl: getUrl,
 		createUrlBy: createUrl,
 		appendToUrl: appendTo,
 		getValueFrom: getValue

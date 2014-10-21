@@ -15,10 +15,11 @@ _tics.functions = (function () {
 		return obj.hasOwnProperty('data') && obj.hasOwnProperty('isProvisioned');
 	};
 	
-	var asJson = function (val, provisioned) {
+	var asJson = function (val, provisioned, isValueNotPartial) {
 		return {
 			data: val,
-			isProvisioned: provisioned
+			isProvisioned: provisioned,
+			isPartialData: !isValueNotPartial
 		};
 	};
 
@@ -34,6 +35,11 @@ _tics.functions = (function () {
 
 			var items = section.querySelectorAll('[data-item]');
 			var i;
+			var item;
+			var data;
+
+			var url = helper.getCurrentUrl();
+			var val = helper.getValueFrom(elm);
 
 			for (i = 0; i < items.length; i += 1) {
 				if (items[i] === currentItem) {
@@ -41,10 +47,13 @@ _tics.functions = (function () {
 					break;
 				}
 			}
+			
+			item = section.getAttribute('data-section') + '/' + (elementIndex + 1);
 
-			var item = section.getAttribute('data-section') + '/' + (elementIndex + 1);
+			data = helper.appendToUrl(url, item);
+			data = helper.appendToUrl(data, val);
 
-			return asJson(item, false);
+			return asJson(data, false, true);
 		},
 		getRelativeChange: function (elm) {			
 			var message = 'same';
