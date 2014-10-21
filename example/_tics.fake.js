@@ -7,6 +7,14 @@ _tics.fake = (function () {
 
 	var counter = 0;
 
+	var isFiddle = function () {
+		if (!document.domain) {
+			return false;
+		}
+
+		return document.domain.toLowerCase() === 'jsfiddle.net';
+	};
+
 	return function (gaAction, type, content, action, label) {
 
 		var container = window.document.querySelector('.log-container');
@@ -36,7 +44,7 @@ _tics.fake = (function () {
 			message = gaAction + ' ' + type + ' ' + urlLastPart;
 		}
 
-		if (console && console.log) {
+		if (console && console.log && !isFiddle()) {
 			console.log(message);
 			return;
 		}
