@@ -24,11 +24,12 @@ _tics.functions = (function () {
 	};
 
 	var funcs = {
-		getValue: function (elm) {
-			return asJson(elm.value, false);
+		getValue: function (obj) {
+			return asJson(obj.elm.value, false);
 		},
-		getItemInSection: function (elm) {
+		getItemInSection: function (obj) {
 			var elementIndex = -1;
+			var elm = obj.elm;
 			
 			var section = helper.getClosest(elm, 'data-section');
 			var currentItem = helper.getClosest(elm, 'data-item');
@@ -55,8 +56,9 @@ _tics.functions = (function () {
 
 			return asJson(data, false, true);
 		},
-		getRelativeChange: function (elm) {			
+		getRelativeChange: function (obj) {			
 			var message = 'same';
+			var elm = obj.elm;
 			
 			var dataVal = elm.getAttribute('data-val-original-value');
 			

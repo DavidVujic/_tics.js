@@ -25,8 +25,14 @@ _tics.gaProvider = (function () {
 		if (typeof func !== 'function') {
 			return null;
 		}
-		
-		return func.apply(null, [elm, window.ga, ev]);
+
+        var args = {
+        	elm: elm,
+        	service: window.ga,
+        	ev: ev
+        };
+
+		return func.call(null, args);
 	};
 
 	var sendTrackingFor = function (elm, ev) {
