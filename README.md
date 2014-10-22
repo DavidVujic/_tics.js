@@ -65,7 +65,7 @@ _tics.events();
 The **getValue**, **getRelativeChange** and **getItemInSection** functions are included in **_tics.js**. Add your custom function by appending them to the library. Use your favorite library for traversing the DOM if you like.
 
 ```javascript
-_tics.functions.add('getMyCustomValue', function (elm) {
+_tics.functions.add('getMyCustomValue', function (obj) {
 	return $('my-selector').val();
 });
 ```
@@ -73,27 +73,32 @@ _tics.functions.add('getMyCustomValue', function (elm) {
 If you don't want the library to perform the defaults, just pass "true" (treated as already provisioned) as a parameter to the add function. 
 
 ```javascript
-_tics.functions.add('getType', function (elm) {
-    window.ga('send', 'hello world');
-    window.ga('send', 'my custom function');
+_tics.functions.add('getType', function (obj) {
+    
+    // do whatever you like here
+
 }, true);
 ```
 
-If you want to override or hijack one of the existing functions, just call the add function and use the same name as one of the built in functions. If you want to grab the current analytics tool, the callback function will provide you with it as a second parameter.
+If you want to override or hijack one of the existing functions, just call the add function and use the same name as one of the built in functions. If you want to grab the current analytics service, the callback function will provide you with it as a property of the obj parameter.
 
 ```javascript
-_tics.functions.add('getValue', function (elm, analyticsTool) {
-    analyticsTool('send', 'hello world');
-    analyticsTool('send', 'my custom function');
+// the obj parameter:
+// obj.elm is the current element
+// obj.ev is the current event
+// obj.service is the current analytics service, used by the provider
+_tics.functions.add('getValue', function (obj) {
+    obj.service('send', 'hello world');
+    obj.service('send', 'my custom function');
 }, true);
 ```
 
 ```javascript
-_tics.functions.add('myOverrideOfGetValue', function (elm) {
+_tics.functions.add('myOverrideOfGetValue', function (obj) {
 	var func = _tics.functions.get('getValue');
 
 	// returns a json object {data: string, isProvisioned : true/false }
-	var result = func(elm);
+	var result = func(obj);
 
 	return result.data + '-mysuffix';
 });

@@ -100,10 +100,10 @@
 				window.ga = _tics.fake;
 
                 // add a custom function and disable the default event handling, by passing the true parameter.
-	            _tics.functions.add('getType', function (elm) {
+	            _tics.functions.add('getType', function (obj) {
 
-	                window.ga('send', 'hello world');
-	                window.ga('send', elm.type);
+	                obj.service('send', 'hello world');
+	                obj.service('send', obj.elm.type);
 	            }, true);
 
                 // initialize the Google Analytics provider with required data.
