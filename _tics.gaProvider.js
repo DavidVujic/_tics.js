@@ -12,7 +12,7 @@ _tics.gaProvider = (function () {
 	var account = null;
 	var domain = null;
 
-	var runCustomFunction = function (elm) {		
+	var runCustomFunction = function (elm, ev) {		
 		var funcName = elm.getAttribute('data-val-analyze-custom');
 		var func;
 		
@@ -26,7 +26,7 @@ _tics.gaProvider = (function () {
 			return null;
 		}
 		
-		return func.apply(null, [elm, window.ga]);
+		return func.apply(null, [elm, window.ga, ev]);
 	};
 
 	var sendTrackingFor = function (elm, ev) {
@@ -39,7 +39,7 @@ _tics.gaProvider = (function () {
 		var action = ev.type;
 		var label = helper.getValueFrom(elm);
 		
-		var result = runCustomFunction(elm);
+		var result = runCustomFunction(elm, ev);
 
 		if (result) {
 			if(result.isProvisioned) {
