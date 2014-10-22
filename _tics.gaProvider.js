@@ -7,7 +7,6 @@ _tics.gaProvider = (function () {
 
 	var isInitialized = false;
 
-	var ga = null;
 	var helper = null;
 	var functions = null;
 	var account = null;
@@ -27,7 +26,7 @@ _tics.gaProvider = (function () {
 			return null;
 		}
 		
-		return func.apply(null, [elm, ga]);
+		return func.apply(null, [elm, window.ga]);
 	};
 
 	var sendTrackingFor = function (elm, ev) {
@@ -40,7 +39,7 @@ _tics.gaProvider = (function () {
 		var action = ev.type;
 		var label = helper.getValueFrom(elm);
 		
-		var result = runCustomFunction(elm, ga);
+		var result = runCustomFunction(elm);
 
 		if (result) {
 			if(result.isProvisioned) {
@@ -54,8 +53,8 @@ _tics.gaProvider = (function () {
 			}
 		}
 
-		ga('send', 'pageview', url);
-		ga('send', 'event', category, action, label);
+		window.ga('send', 'pageview', url);
+		window.ga('send', 'event', category, action, label);
 	};
 	
 	var setDefaults = function () {
@@ -63,8 +62,8 @@ _tics.gaProvider = (function () {
 			return;
 		}
 
-		ga('create', account, domain);
-		ga('send', 'pageview');
+		window.ga('create', account, domain);
+		window.ga('send', 'pageview');
 	};
 
 	var initialize = function (gaAccount) {
@@ -72,7 +71,6 @@ _tics.gaProvider = (function () {
 			return;
 		}
 
-		ga = window.ga;
 		helper = _tics.helper;
 		functions = _tics.functions;
 
