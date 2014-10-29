@@ -6,26 +6,10 @@ _tics.functions = (function () {
 	'use strict';
 
 	var helper = _tics.helper;
-	
-	var isJson = function (obj) {
-		if (!obj) {
-			return false;
-		}
-		
-		return obj.hasOwnProperty('data') && obj.hasOwnProperty('isProvisioned');
-	};
-	
-	var asJson = function (val, provisioned, isValueNotPartial) {
-		return {
-			data: val,
-			isProvisioned: provisioned,
-			isPartialData: !isValueNotPartial
-		};
-	};
 
 	var funcs = {
 		getValue: function (obj) {
-			return asJson(obj.elm.value, false);
+			return helper.asTicsJson(obj.elm.value, false);
 		},
 		getItemInSection: function (obj) {
 			var elementIndex = -1;
@@ -54,7 +38,7 @@ _tics.functions = (function () {
 			data = helper.appendToUrl(url, item);
 			data = helper.appendToUrl(data, val);
 
-			return asJson(data, false, true);
+			return helper.asTicsJson(data, false, true);
 		},
 		getRelativeChange: function (obj) {			
 			var message = 'same';
@@ -75,7 +59,7 @@ _tics.functions = (function () {
 				}
 			}
 
-			return asJson(message, false);
+			return helper.asTicsJson(message, false);
 		}
 	};
 
@@ -93,11 +77,11 @@ _tics.functions = (function () {
 		funcs[funcName] = function (elm, ga) {
 			var result = func(elm, ga);
 			
-			if (isJson(result)) {
+			if (helper.isTicsJson(result)) {
 				return result;
 			}
 
-			return asJson(result, handlesProvisioning);
+			return helper.asTicsJson(result, handlesProvisioning);
 		};
 	};
 

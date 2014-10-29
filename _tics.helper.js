@@ -105,6 +105,14 @@ _tics.helper = (function () {
 		return isTag(elm, 'a');
 	};
 
+	var isText = function (elm) {
+		if (!elm) {
+			return false;
+		}
+
+		return elm.nodeType === 3;
+	};
+
 	var getValueForImage = function (elm) {
 		if (isImage(elm) && hasAttribute(elm, 'alt')) {
 			return elm.getAttribute('alt');
@@ -122,7 +130,7 @@ _tics.helper = (function () {
 
 		child = elm.firstChild;
 
-		if (child.nodeType === 3) {
+		if (isText(child)) {
 			return child.nodeValue;
 		}
 
@@ -188,6 +196,22 @@ _tics.helper = (function () {
 
 		return appendTo(url, val);
 	};
+
+	var isJson = function (obj) {
+		if (!obj) {
+			return false;
+		}
+		
+		return obj.hasOwnProperty('data') && obj.hasOwnProperty('isProvisioned');
+	};
+	
+	var asJson = function (val, provisioned, isValueNotPartial) {
+		return {
+			data: val,
+			isProvisioned: provisioned,
+			isPartialData: !isValueNotPartial
+		};
+	};
 	
 	return {
 		get: getBy,
@@ -198,6 +222,8 @@ _tics.helper = (function () {
 		getCurrentUrl: getUrl,
 		createUrlBy: createUrl,
 		appendToUrl: appendTo,
-		getValueFrom: getValue
+		getValueFrom: getValue,
+		isTicsJson: isJson,
+		asTicsJson: asJson
 	};
 }());
