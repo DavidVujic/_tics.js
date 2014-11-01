@@ -9,6 +9,26 @@ _tics.helper = (function () {
 		return window.document.querySelectorAll(selector);
 	};
 
+	var triggerEvent = function (eventName, elm) {
+		var ev;
+
+		if (document.createEvent) {
+			ev = document.createEvent('HTMLEvents');
+			ev.initEvent(eventName, true, true);
+		} else {
+			ev = document.createEventObject();
+			ev.eventType = eventName;
+		}
+
+		ev.eventName = eventName;
+
+		if (document.createEvent) {
+			elm.dispatchEvent(ev);
+		} else {
+			elm.fireEvent('on' + ev.eventType, ev);
+		}
+	};
+
 	var getEvent = function (e) {
 		if (!e) {
 			return window.event;
@@ -34,13 +54,13 @@ _tics.helper = (function () {
 			return;
 		}
 
-	  if (el.addEventListener) {
-	    el.addEventListener(eventName, handler);
-	  } else {
-	    el.attachEvent('on' + eventName, function() {
-	      handler.call(el);
-	    });
-	  }
+		if (el.addEventListener) {
+			el.addEventListener(eventName, handler);
+		} else {
+			el.attachEvent('on' + eventName, function() {
+				handler.call(el);
+			});
+		}
 	};
 
 	var addListenersFor = function (elements, eventName, handler) {
@@ -217,6 +237,7 @@ _tics.helper = (function () {
 		get: getBy,
 		ev: getEvent,
 		evTarget: getEventTarget,
+		trigger: triggerEvent,
 		addListeners: addListenersFor,
 		getClosest: getClosestElement,
 		getCurrentUrl: getUrl,
