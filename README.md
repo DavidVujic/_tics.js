@@ -109,3 +109,12 @@ Add any event not covered by the built in features, by calling the customEvent f
 ```javascript
 _tics.customEvent('select', 'focus');
 ```
+
+**Note**
+If you use jQuery and need to trigger an event on a field that _tics is listening to from code:
+please note that the jQuery trigger function does not fire events added with vanilla JavaScript (using addEventListener, like this library does).
+You can instead of the jQuery trigger use:
+
+```javascript
+_tics.helper.trigger('change', myElement);
+```
