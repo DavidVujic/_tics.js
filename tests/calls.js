@@ -13,6 +13,10 @@ var calls = (function () {
 			obj[name].calls = 0;
 		}
 
+		for (var prop in oldFunc) {
+			obj[name][prop] = oldFunc[prop];
+		}
+
 		return obj[name];
 	};
 

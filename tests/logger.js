@@ -13,6 +13,10 @@ var logger = (function () {
 			return result;
 		};
 
+		for (var prop in oldFunc) {
+			obj[name][prop] = oldFunc[prop];
+		}
+
 		return obj[name];
 	};
 

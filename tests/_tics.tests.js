@@ -1,4 +1,4 @@
-/*global test:true, module:true, strictEqual:true, ok:true, _tics: true, interceptor:true, calls:true, testHelper:true */
+/*global test:true, module:true, strictEqual:true, ok:true, _tics: true, interceptor:true, calls:true, logger:true, testHelper:true */
 
 (function () {
 	var fake;
@@ -25,6 +25,8 @@
 				trackPage: function () {},
 				track: function () {}
 			}, calls.add);
+
+			fake = interceptor.add(fake, logger.add);
 
 			testHelper.createInputField('first-name-field');
 		}, 
