@@ -41,6 +41,8 @@ var _tics = (function () {
 	var initialize = function (analyticsProvider) {
 		provider = analyticsProvider;
 		helper = _tics.helper;
+
+		return helper.isValidProvider(provider);
 	};
 
 	return {

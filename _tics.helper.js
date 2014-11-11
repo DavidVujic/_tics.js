@@ -232,6 +232,10 @@ _tics.helper = (function () {
 			isPartialData: !isValueNotPartial
 		};
 	};
+
+	var isProvider = function (obj) {
+		return obj && typeof obj.trackPage === 'function' && typeof obj.track === 'function';
+	};
 	
 	return {
 		get: getBy,
@@ -245,6 +249,7 @@ _tics.helper = (function () {
 		appendToUrl: appendTo,
 		getValueFrom: getValue,
 		isTicsJson: isJson,
-		asTicsJson: asJson
+		asTicsJson: asJson,
+		isValidProvider: isProvider
 	};
 }());
