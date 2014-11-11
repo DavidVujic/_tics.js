@@ -2,7 +2,7 @@ var interceptor = (function () {
 	'use strict';
 
 	var eachItem = function (obj, func) {
-		var mocked = obj;
+		var that = obj;
 
 		for (var prop in obj) {
 			if (!obj.hasOwnProperty(prop)) {
@@ -10,13 +10,13 @@ var interceptor = (function () {
 			}
 
 			if (typeof obj[prop] === 'function') {
-				mocked[prop] = func(obj, prop);
+				that[prop] = func(obj, prop);
 			} else {
-				mocked[prop] = obj[prop];
+				that[prop] = obj[prop];
 			}			
 		}
 
-		return mocked;
+		return that;
 	};
 
 	var addTo = function (obj, interceptor) {
