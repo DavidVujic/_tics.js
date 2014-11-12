@@ -24,10 +24,8 @@
 			fake = interceptor.add({
 				trackPage: function () {},
 				track: function () {}
-			}, calls.add);
-
-			fake = interceptor.add(fake, logger.add);
-
+			}, [calls.add, logger.add]);
+				
 			testHelper.createInputField('first-name-field');
 		}, 
 		teardown: function () { 

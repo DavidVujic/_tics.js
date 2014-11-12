@@ -4,19 +4,20 @@ var logger = (function () {
 		var oldFunc = obj[name];
 
 		obj[name] = function () {
-			console.log('Before calling function ' + name);
+			console.log('Before: ' + name);
 
-			var result = oldFunc();
+			var args = (arguments.length === 1 ? [arguments[0]] : Array.prototype.slice.call(arguments, 0));
 
-			console.log('After calling function ' + name);
+			console.log('args: ');
+			console.log(args);
+
+			var result = oldFunc.apply(null, args);
+
+			console.log('After: ' + name);
 
 			return result;
 		};
-
-		for (var prop in oldFunc) {
-			obj[name][prop] = oldFunc[prop];
-		}
-
+		
 		return obj[name];
 	};
 
