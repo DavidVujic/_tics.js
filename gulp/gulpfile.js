@@ -9,7 +9,7 @@ gulp.task('minify', function () {
 	gulp.src(['../_tics.js','../_tics.helper.js', '../_tics.functions.js', '../_tics.gaProvider.js'])
 		.pipe(concat('_tics.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('../release'));
+		.pipe(gulp.dest('../'));
 });
 
 gulp.task('qunit', function() {
