@@ -6,6 +6,10 @@ var interceptor = (function () {
 		var that = target;
 
 		for (prop in source) {
+			if (!source.hasOwnProperty(prop)) {
+				continue;
+			}
+			
 			if (!that[prop]) {
 				that[prop] = source[prop];
 			}
@@ -18,7 +22,7 @@ var interceptor = (function () {
 		var that = obj;
 		var thatFunc;
 		var prop;
-	
+		
 		for (prop in obj) {
 			if (!obj.hasOwnProperty(prop)) {
 				continue;
