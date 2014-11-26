@@ -5,100 +5,122 @@ var _tics = _tics || {};
 _tics.helper = (function () {
 	'use strict';
 
-	var getBy = function (selector) {
-		return window.document.querySelectorAll(selector);
-	};
+	var almostvanilla = (function () {
 
-	var triggerEvent = function (eventName, elm) {
-		var ev;
+		var getBy = function (selector) {
+			return window.document.querySelectorAll(selector);
+		};
 
-		if (document.createEvent) {
-			ev = document.createEvent('HTMLEvents');
-			ev.initEvent(eventName, true, true);
-		} else {
-			ev = document.createEventObject();
-			ev.eventType = eventName;
-		}
+		var triggerEvent = function (eventName, elm) {
+			var ev;
 
-		ev.eventName = eventName;
+			if (document.createEvent) {
+				ev = document.createEvent('HTMLEvents');
+				ev.initEvent(eventName, true, true);
+			} else {
+				ev = document.createEventObject();
+				ev.eventType = eventName;
+			}
 
-		if (document.createEvent) {
-			elm.dispatchEvent(ev);
-		} else {
-			elm.fireEvent('on' + ev.eventType, ev);
-		}
-	};
+			ev.eventName = eventName;
 
-	var getEvent = function (e) {
-		if (!e) {
-			return window.event;
-		}
-		
-		return e;
-	};
+			if (document.createEvent) {
+				elm.dispatchEvent(ev);
+			} else {
+				elm.fireEvent('on' + ev.eventType, ev);
+			}
+		};
 
-	var getEventTarget = function (e) {
-		var evt = getEvent(e);
+		var getEvent = function (e) {
+			if (!e) {
+				return window.event;
+			}
 
-		if (!e) {
-			return evt.srcElement;	
-		}
+			return e;
+		};
 
-		return evt.target;
-	};
+		var getEventTarget = function (e) {
+			var evt = getEvent(e);
 
-	var addListenerFor = function (el, eventName, handler) {
-		var elmType = el.getAttribute('type');
+			if (!e) {
+				return evt.srcElement;	
+			}
 
-		if (elmType && elmType === 'hidden') {
-			return;
-		}
+			return evt.target;
+		};
 
-		if (el.addEventListener) {
-			el.addEventListener(eventName, handler);
-		} else {
-			el.attachEvent('on' + eventName, function() {
-				handler.call(el);
-			});
-		}
-	};
+		var addListenerFor = function (el, eventName, handler) {
+			var elmType = el.getAttribute('type');
 
-	var addListenersFor = function (elements, eventName, handler) {
-		var i;
+			if (elmType && elmType === 'hidden') {
+				return;
+			}
 
-		if (!elements) {
-			return;
-		}
+			if (el.addEventListener) {
+				el.addEventListener(eventName, handler);
+			} else {
+				el.attachEvent('on' + eventName, function() {
+					handler.call(el);
+				});
+			}
+		};
 
-		for (i = 0; i < elements.length; i += 1) {
-			addListenerFor(elements[i], eventName, handler);
-		}
-	};
+		var addListenersFor = function (elements, eventName, handler) {
+			var i;
+
+			if (!elements) {
+				return;
+			}
+
+			for (i = 0; i < elements.length; i += 1) {
+				addListenerFor(elements[i], eventName, handler);
+			}
+		};
+
+		var hasAttribute = function (elm, attrName) {
+			if (elm.nodeType !== 1) {
+				return false;
+			}
+
+			var node = elm.getAttributeNode(attrName);
+
+			return (node && node.name === attrName);
+		};
+
+		var getClosestElement = function (elm, attributeName) {
+			var closest = null;
+			var parent = elm;
+
+			while (parent !== window.document) {
+				if (hasAttribute(parent, attributeName)) {
+					closest = parent;
+					break;
+				}
+
+				parent = parent.parentNode;
+			}
+
+			return closest;
+		};
+
+		return {
+			get: getBy,
+			ev: getEvent,
+			evTarget: getEventTarget,
+			trigger: triggerEvent,
+			addListeners: addListenersFor,
+			getClosest: getClosestElement
+		};
+	}());
 
 	var hasAttribute = function (elm, attrName) {
 		if (elm.nodeType !== 1) {
 			return false;
 		}
-		
+
 		var node = elm.getAttributeNode(attrName);
 
 		return (node && node.name === attrName);
-	};
-	
-	var getClosestElement = function (elm, attributeName) {
-		var closest = null;
-		var parent = elm;
-		
-		while (parent !== window.document) {
-			if (hasAttribute(parent, attributeName)) {
-				closest = parent;
-				break;
-			}
-			
-			parent = parent.parentNode;
-		}
-		
-		return closest;
 	};
 
 	var startsWith = function (str, suffix) {
@@ -221,10 +243,10 @@ _tics.helper = (function () {
 		if (!obj) {
 			return false;
 		}
-		
+
 		return obj.hasOwnProperty('data') && obj.hasOwnProperty('isProvisioned');
 	};
-	
+
 	var asJson = function (val, provisioned, isValueNotPartial) {
 		return {
 			data: val,
@@ -236,14 +258,14 @@ _tics.helper = (function () {
 	var isProvider = function (obj) {
 		return obj && typeof obj.trackPage === 'function' && typeof obj.track === 'function';
 	};
-	
+
 	return {
-		get: getBy,
-		ev: getEvent,
-		evTarget: getEventTarget,
-		trigger: triggerEvent,
-		addListeners: addListenersFor,
-		getClosest: getClosestElement,
+		get: almostvanilla.get,
+		ev: almostvanilla.ev,
+		evTarget: almostvanilla.evTarget,
+		trigger: almostvanilla.trigger,
+		addListeners: almostvanilla.addListeners,
+		getClosest: almostvanilla.getClosest,
 		getCurrentUrl: getUrl,
 		createUrlBy: createUrl,
 		appendToUrl: appendTo,
