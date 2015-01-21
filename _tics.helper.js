@@ -222,13 +222,28 @@ _tics.helper = (function () {
 	};
 
 	var appendTo = function (url, val) {
+		var address;
+		var query = '';
 		var suffix = '/';
 
-		if (endsWith(url, suffix) || startsWith(val, suffix)) {
+		var index = url.indexOf('?');
+
+		if(index === -1) {
+			address = url;
+		} else {
+			address = url.substring(0, index);
+			query = url.substring(index, url.length);
+
+			if (!endsWith(val, suffix)) {
+				query = suffix + query;
+			}
+		}
+		
+		if (endsWith(address, suffix) || startsWith(val, suffix)) {
 			suffix = '';
 		}
 
-		return url + suffix + val;
+		return address + suffix + val + query;
 	};
 
 	var createUrl = function (elm) {

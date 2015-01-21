@@ -34,4 +34,14 @@
 		strictEqual(result, expected, 'strictEqual');
 	});
 
+	test('append to url with querystring with slash', function () {
+		var expected = 'http://www.github.com/theValue/?hello=world';
+		var url = 'http://www.github.com?hello=world';
+		var val = 'theValue/';
+
+		var result = _tics.helper.appendToUrl(url, val);
+
+		strictEqual(result, expected, 'strictEqual');
+	});
+
 }());
