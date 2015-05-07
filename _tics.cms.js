@@ -5,10 +5,6 @@ _tics.cms = (function () {
 
 	var helper = _tics.helper;
 
-	var getClassNamesFrom = function (element) {
-		return element.className.split(' ');
-	};
-
 	var findFuncName = function (name, query) {
 		var funcName = null;
 
@@ -23,6 +19,10 @@ _tics.cms = (function () {
 		var funcName = null;
 		var i;
 
+		if (!names) {
+			return null;
+		}
+		
 		for (i = 0; i < names.length; i += 1) {
 			funcName = findFuncName(names[i], query);
 		}
@@ -30,26 +30,44 @@ _tics.cms = (function () {
 		return funcName;
 	};
 
-	var modify = function (element, prefix) {
-		var classNames = getClassNamesFrom(element);
+	var getClassNamesFrom = function (elm) {
+		var css = elm.className;
 
+		if (!css) {
+			return null;
+		}
+		
+		return elm.className.split(' ');
+	};
+
+	var modifyElement = function (elm, prefix) {
+		var classNames = getClassNamesFrom(elm);
 		var funcName = getFuncNameFrom(classNames, prefix);
 
-		element.setAttribute('data-val-' + prefix, funcName);
+		if (!funcName) {
+			return;
+		}
+
+		elm.setAttribute('data-val-' + prefix, funcName);
+		elm.setAttribute('data-val-original-value', elm.value);
 	};
 
 	var fromClassNameToDataAttribute = function () {
 		var prefix = 'analyze-custom';
 		var elements = helper.get('[class*="' + prefix + '"]');
+
+		if (!elements) {
+			return;
+		}
 		
 		var i;
 
 		for (i = 0; i < elements.length; i += 1) {
-			modify(elements[i], prefix);
+			modifyElement(elements[i], prefix);
 		}
 	};
 
 	return {
-		classNameToData: fromClassNameToDataAttribute
+		parse: fromClassNameToDataAttribute
 	};
 }());
