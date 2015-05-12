@@ -8,6 +8,10 @@ _tics.cms = (function () {
 	var findFuncName = function (name, query) {
 		var funcName = null;
 
+		if (!name) {
+			return null;
+		}
+
 		if (name.lastIndexOf(query, 0) === 0) {
 			funcName = name.slice(query.length + 1);
 		}
@@ -31,9 +35,7 @@ _tics.cms = (function () {
 	};
 
 	var getClassNamesFrom = function (elm) {
-		var css = elm.className;
-
-		if (!css) {
+		if(!elm || !elm.className) {
 			return null;
 		}
 		
@@ -55,12 +57,11 @@ _tics.cms = (function () {
 	var fromClassNameToDataAttribute = function () {
 		var prefix = 'analyze-custom';
 		var elements = helper.get('[class*="' + prefix + '"]');
+		var i;
 
 		if (!elements) {
 			return;
 		}
-		
-		var i;
 
 		for (i = 0; i < elements.length; i += 1) {
 			modifyElement(elements[i], prefix);
@@ -68,6 +69,6 @@ _tics.cms = (function () {
 	};
 
 	return {
-		parse: fromClassNameToDataAttribute
+		prepareForm: fromClassNameToDataAttribute
 	};
 }());
