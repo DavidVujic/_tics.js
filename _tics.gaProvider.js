@@ -12,10 +12,10 @@ _tics.gaProvider = (function () {
 	var account = null;
 	var domain = null;
 
-	var runCustomFunction = function (elm, ev) {		
+	var runCustomFunction = function (elm, ev) {
 		var funcName = elm.getAttribute('data-val-analyze-custom');
 		var func;
-		
+
 		if (!funcName) {
 			return null;
 		}
@@ -26,11 +26,11 @@ _tics.gaProvider = (function () {
 			return null;
 		}
 
-        var args = {
-        	elm: elm,
-        	service: window.ga,
-        	ev: ev
-        };
+		var args = {
+			elm: elm,
+			service: window.ga,
+			ev: ev
+		};
 
 		return func.call(null, args);
 	};
@@ -44,16 +44,16 @@ _tics.gaProvider = (function () {
 		var category = elm.tagName;
 		var action = ev.type;
 		var label = helper.getValueFrom(elm);
-		
+
 		var result = runCustomFunction(elm, ev);
 
 		if (result) {
-			if(result.isProvisioned) {
+			if (result.isProvisioned) {
 				return;
 			}
 
 			if (result.isPartialData) {
-				url = helper.appendToUrl(url, result.data);	
+				url = helper.appendToUrl(url, result.data);
 			} else {
 				url = result.data;
 			}
@@ -62,7 +62,7 @@ _tics.gaProvider = (function () {
 		window.ga('send', 'pageview', url);
 		window.ga('send', 'event', category, action, label);
 	};
-	
+
 	var setDefaults = function () {
 		if (!isInitialized) {
 			return;
