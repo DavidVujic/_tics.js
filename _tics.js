@@ -13,11 +13,11 @@ var _tics = (function () {
 	};
 
 	var addEvent = function (selector, action) {
-		if(!selector || selector.length === 0) {
+		if (!selector || selector.length === 0) {
 			return;
 		}
 
-		if(!action || action.length === 0) {
+		if (!action || action.length === 0) {
 			return;
 		}
 

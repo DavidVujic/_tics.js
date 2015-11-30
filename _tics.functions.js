@@ -14,7 +14,7 @@ _tics.functions = (function () {
 		getItemInSection: function (obj) {
 			var elementIndex = -1;
 			var elm = obj.elm;
-			
+
 			var section = helper.getClosest(elm, 'data-section');
 			var currentItem = helper.getClosest(elm, 'data-item');
 
@@ -32,7 +32,7 @@ _tics.functions = (function () {
 					break;
 				}
 			}
-			
+
 			item = section.getAttribute('data-section') + '/' + (elementIndex + 1);
 
 			data = helper.appendToUrl(url, item);
@@ -40,15 +40,15 @@ _tics.functions = (function () {
 
 			return helper.asTicsJson(data, false, true);
 		},
-		getRelativeChange: function (obj) {			
+		getRelativeChange: function (obj) {
 			var message = 'same';
 			var elm = obj.elm;
-			
+
 			var dataVal = elm.getAttribute('data-val-original-value');
-			
+
 			var originalValue = parseInt(dataVal, 10);
 			var newValue = parseInt(elm.value, 10);
-			
+
 			if (window.isNaN(originalValue) || window.isNaN(newValue)) {
 				message = 'undefined';
 			} else {
@@ -76,7 +76,7 @@ _tics.functions = (function () {
 	var addFunction = function (funcName, func, handlesProvisioning) {
 		funcs[funcName] = function (elm, ga) {
 			var result = func(elm, ga);
-			
+
 			if (helper.isTicsJson(result)) {
 				return result;
 			}

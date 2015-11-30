@@ -43,7 +43,7 @@ _tics.helper = (function () {
 			var evt = getEvent(e);
 
 			if (!e) {
-				return evt.srcElement;	
+				return evt.srcElement;
 			}
 
 			return evt.target;
@@ -59,7 +59,7 @@ _tics.helper = (function () {
 			if (el.addEventListener) {
 				el.addEventListener(eventName, handler);
 			} else {
-				el.attachEvent('on' + eventName, function() {
+				el.attachEvent('on' + eventName, function () {
 					handler.call(el);
 				});
 			}
@@ -210,15 +210,15 @@ _tics.helper = (function () {
 			return elm.getAttribute('id');
 		}
 
-		if (elm.getAttribute('href')){
+		if (elm.getAttribute('href')) {
 			return elm.getAttribute('href');
 		}
 
-		return '';	
+		return '';
 	};
 
 	var getUrl = function () {
-		return window.location.href;	
+		return window.location.href;
 	};
 
 	var appendTo = function (url, val) {
@@ -228,7 +228,7 @@ _tics.helper = (function () {
 
 		var index = url.indexOf('?');
 
-		if(index === -1) {
+		if (index === -1) {
 			address = url;
 		} else {
 			address = url.substring(0, index);
@@ -238,7 +238,7 @@ _tics.helper = (function () {
 				query = suffix + query;
 			}
 		}
-		
+
 		if (endsWith(address, suffix) || startsWith(val, suffix)) {
 			suffix = '';
 		}
