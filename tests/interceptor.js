@@ -1,3 +1,4 @@
+/* exported interceptor */
 var interceptor = (function () {
 	'use strict';
 
@@ -9,7 +10,7 @@ var interceptor = (function () {
 			if (!source.hasOwnProperty(prop)) {
 				continue;
 			}
-			
+
 			if (!that[prop]) {
 				that[prop] = source[prop];
 			}
@@ -22,7 +23,7 @@ var interceptor = (function () {
 		var that = obj;
 		var thatFunc;
 		var prop;
-		
+
 		for (prop in obj) {
 			if (!obj.hasOwnProperty(prop)) {
 				continue;
@@ -48,7 +49,7 @@ var interceptor = (function () {
 		for (i = 0; i < interceptors.length; i += 1) {
 			modified = eachItem(obj, interceptors[i]);
 		}
-		
+
 		return modified;
 	};
 

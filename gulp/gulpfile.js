@@ -13,13 +13,22 @@ var files = [
 	'../_tics.gaProvider.js'
 ];
 
+var testFiles = [
+	'../tests/_tics.helper.tests.js',
+	'../tests/_tics.tests.js',
+	'../tests/calls.js',
+	'../tests/interceptor.js',
+	'../tests/logger.js',
+	'../tests/testHelper.js'
+];
+
 gulp.task('lint', function () {
-	return gulp.src(files)
+	var allFiles = files.concat(testFiles);
+	return gulp.src(allFiles)
 		.pipe(eslint())
 		.pipe(eslint.format())
 		.pipe(eslint.failAfterError());
 });
-
 
 gulp.task('minify', ['lint'], function () {
 	gulp.src(files)

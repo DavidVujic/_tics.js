@@ -1,3 +1,6 @@
+/* exported logger */
+/* eslint-disable no-console */
+
 var logger = (function () {
 
 	var addTo = function (obj, name) {
@@ -20,7 +23,7 @@ var logger = (function () {
 
 			return result;
 		};
-		
+
 		return obj[name];
 	};
 

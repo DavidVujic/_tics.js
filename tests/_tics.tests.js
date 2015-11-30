@@ -2,7 +2,7 @@
 
 (function () {
 	var fake;
-	
+
 	module('object initialization');
 
 	test('is global object added', function () {
@@ -20,15 +20,15 @@
 	});
 
 	module('API tests', {
-		setup: function() {
+		setup: function () {
 			fake = interceptor.add({
 				trackPage: function () {},
 				track: function () {}
 			}, [calls.add, logger.add]);
-				
+
 			testHelper.createInputField('first-name-field');
-		}, 
-		teardown: function () { 
+		},
+		teardown: function () {
 			fake = null;
 			testHelper.clearAdded();
 		}

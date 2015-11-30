@@ -1,7 +1,7 @@
 /*global test:true, module:true, strictEqual:true, _tics: true */
 
 (function () {
-	
+
 	module('_tics.helper API tests');
 
 	test('append to url', function () {
@@ -43,5 +43,4 @@
 
 		strictEqual(result, expected, 'strictEqual');
 	});
-
 }());
