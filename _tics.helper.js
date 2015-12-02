@@ -103,13 +103,21 @@ _tics.helper = (function () {
 			return closest;
 		};
 
+		var isArray = function (obj) {
+			var func = Object.prototype.toString;
+			var expected = func.call([]);
+
+			return func.call(obj) === expected;
+		};
+
 		return {
 			get: getBy,
 			ev: getEvent,
 			evTarget: getEventTarget,
 			trigger: triggerEvent,
 			addListeners: addListenersFor,
-			getClosest: getClosestElement
+			getClosest: getClosestElement,
+			isArray: isArray
 		};
 	}());
 
@@ -287,6 +295,7 @@ _tics.helper = (function () {
 		getValueFrom: getValue,
 		isTicsJson: isJson,
 		asTicsJson: asJson,
-		isValidProvider: isProvider
+		isValidProvider: isProvider,
+		isArray: almostvanilla.isArray
 	};
 }());

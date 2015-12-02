@@ -1,15 +1,23 @@
 var _tics = (function () {
 	'use strict';
 
-	var provider = null;
+	var providers = null;
 	var helper = null;
 
 	var trackPage = function () {
-		provider.trackPage();
+		var i;
+
+		for (i = 0; i < providers.length; i += 1) {
+			providers[i].trackPage();
+		}
 	};
 
 	var trackEvent = function (e) {
-		provider.track(helper.evTarget(e), helper.ev(e));
+		var i;
+
+		for (i = 0; i < providers.length; i += 1) {
+			providers[i].track(helper.evTarget(e), helper.ev(e));
+		}
 	};
 
 	var addEvent = function (selector, action) {
@@ -38,11 +46,30 @@ var _tics = (function () {
 		addEvent('button', 'click');
 	};
 
-	var initialize = function (analyticsProvider) {
-		provider = analyticsProvider;
+	var register = function (obj) {
+		if (!helper.isValidProvider(obj)) {
+			return;
+		}
+
+		providers.push(obj);
+	};
+
+	var initialize = function (provider) {
+		providers = [];
+		var i;
+		var expected = 1;
 		helper = _tics.helper;
 
-		return helper.isValidProvider(provider);
+		if (helper.isArray(provider)) {
+			expected = provider.length;
+			for (i = 0; i < provider.length; i += 1) {
+				register(provider[i]);
+			}
+		} else {
+			register(provider);
+		}
+
+		return providers.length === expected;
 	};
 
 	return {

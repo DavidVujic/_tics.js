@@ -9,14 +9,25 @@
 		assert.ok(_tics, 'ok');
 	});
 
-	QUnit.test('is initialized', function (assert) {
-
+	QUnit.test('is initialized with one provider', function (assert) {
 		fake = {
 			trackPage: function () {},
 			track: function () {}
 		};
 
 		assert.strictEqual(_tics.init(fake), true, 'strictEqual');
+	});
+
+	QUnit.test('is initialized with a list of providers', function (assert) {
+		var fakes = [{
+			trackPage: function () {},
+			track: function () {}
+		}, {
+			trackPage: function () {},
+			track: function () {}
+		}];
+
+		assert.strictEqual(_tics.init(fakes), true, 'strictEqual');
 	});
 
 	QUnit.module('API tests', {
