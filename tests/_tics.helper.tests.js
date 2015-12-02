@@ -1,46 +1,46 @@
-/*global test:true, module:true, strictEqual:true, _tics: true */
+/*global QUnit, _tics */
 
 (function () {
 
-	module('_tics.helper API tests');
+	QUnit.module('_tics.helper API tests');
 
-	test('append to url', function () {
+	QUnit.test('append to url', function (assert) {
 		var expected = 'http://www.github.com/theValue';
 		var url = 'http://www.github.com';
 		var val = 'theValue';
 
 		var result = _tics.helper.appendToUrl(url, val);
 
-		strictEqual(result, expected, 'strictEqual');
+		assert.strictEqual(result, expected, 'strictEqual');
 	});
 
-	test('append to url with slash', function () {
+	QUnit.test('append to url with slash', function (assert) {
 		var expected = 'http://www.github.com/theValue';
 		var url = 'http://www.github.com/';
 		var val = 'theValue';
 
 		var result = _tics.helper.appendToUrl(url, val);
 
-		strictEqual(result, expected, 'strictEqual');
+		assert.strictEqual(result, expected, 'strictEqual');
 	});
 
-	test('append to url with querystring', function () {
+	QUnit.test('append to url with querystring', function (assert) {
 		var expected = 'http://www.github.com/theValue/?hello=world';
 		var url = 'http://www.github.com?hello=world';
 		var val = 'theValue';
 
 		var result = _tics.helper.appendToUrl(url, val);
 
-		strictEqual(result, expected, 'strictEqual');
+		assert.strictEqual(result, expected, 'strictEqual');
 	});
 
-	test('append to url with querystring with slash', function () {
+	QUnit.test('append to url with querystring with slash', function (assert) {
 		var expected = 'http://www.github.com/theValue/?hello=world';
 		var url = 'http://www.github.com?hello=world';
 		var val = 'theValue/';
 
 		var result = _tics.helper.appendToUrl(url, val);
 
-		strictEqual(result, expected, 'strictEqual');
+		assert.strictEqual(result, expected, 'strictEqual');
 	});
 }());

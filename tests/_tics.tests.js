@@ -1,25 +1,25 @@
-/*global test:true, module:true, strictEqual:true, ok:true, _tics: true, interceptor:true, calls:true, logger:true, testHelper:true */
+/*global QUnit, _tics, interceptor, calls, logger, testHelper */
 
 (function () {
 	var fake;
 
-	module('object initialization');
+	QUnit.module('object initialization');
 
-	test('is global object added', function () {
-		ok(_tics, 'ok');
+	QUnit.test('is global object added', function (assert) {
+		assert.ok(_tics, 'ok');
 	});
 
-	test('is initialized', function () {
+	QUnit.test('is initialized', function (assert) {
 
 		fake = {
 			trackPage: function () {},
 			track: function () {}
 		};
 
-		strictEqual(_tics.init(fake), true, 'strictEqual');
+		assert.strictEqual(_tics.init(fake), true, 'strictEqual');
 	});
 
-	module('API tests', {
+	QUnit.module('API tests', {
 		setup: function () {
 			fake = interceptor.add({
 				trackPage: function () {},
@@ -34,21 +34,21 @@
 		}
 	});
 
-	test('track page was called', function () {
+	QUnit.test('track page was called', function (assert) {
 		_tics.init(fake);
 		_tics.page();
 
-		strictEqual(fake.trackPage.calls, 1, 'strictEqual');
+		assert.strictEqual(fake.trackPage.calls, 1, 'strictEqual');
 	});
 
-	test('track events should not be called until change', function () {
+	QUnit.test('track events should not be called until change', function (assert) {
 		_tics.init(fake);
 		_tics.events();
 
-		strictEqual(fake.track.calls, 0, 'strictEqual');
+		assert.strictEqual(fake.track.calls, 0, 'strictEqual');
 	});
 
-	test('track events was called', function () {
+	QUnit.test('track events was called', function (assert) {
 		_tics.init(fake);
 		_tics.events();
 
@@ -57,6 +57,6 @@
 
 		_tics.helper.trigger('change', elm);
 
-		strictEqual(fake.track.calls, 1, 'strictEqual');
+		assert.strictEqual(fake.track.calls, 1, 'strictEqual');
 	});
 }());
