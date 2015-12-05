@@ -1,33 +1,40 @@
 var _tics = (function () {
 	'use strict';
 
-	var provider = null;
-	var helper = null;
+	var providers = null;
 
 	var trackPage = function () {
-		provider.trackPage();
+		var i;
+
+		for (i = 0; i < providers.length; i += 1) {
+			providers[i].trackPage();
+		}
 	};
 
 	var trackEvent = function (e) {
-		provider.track(helper.evTarget(e), helper.ev(e));
+		var i;
+
+		for (i = 0; i < providers.length; i += 1) {
+			providers[i].track(_tics.helper.evTarget(e), _tics.helper.ev(e));
+		}
 	};
 
 	var addEvent = function (selector, action) {
-		if(!selector || selector.length === 0) {
+		if (!selector || selector.length === 0) {
 			return;
 		}
 
-		if(!action || action.length === 0) {
+		if (!action || action.length === 0) {
 			return;
 		}
 
-		var elements = helper.get(selector);
+		var elements = _tics.helper.get(selector);
 
 		if (!elements || elements.length === 0) {
 			return;
 		}
 
-		helper.addListeners(elements, action, function (e) {
+		_tics.helper.addListeners(elements, action, function (e) {
 			trackEvent(e);
 		});
 	};
@@ -38,11 +45,29 @@ var _tics = (function () {
 		addEvent('button', 'click');
 	};
 
-	var initialize = function (analyticsProvider) {
-		provider = analyticsProvider;
-		helper = _tics.helper;
+	var register = function (obj) {
+		if (!_tics.helper.isValidProvider(obj)) {
+			return;
+		}
 
-		return helper.isValidProvider(provider);
+		providers.push(obj);
+	};
+
+	var initialize = function (provider) {
+		providers = [];
+		var i;
+		var expected = 1;
+
+		if (_tics.helper.isArray(provider)) {
+			expected = provider.length;
+			for (i = 0; i < provider.length; i += 1) {
+				register(provider[i]);
+			}
+		} else {
+			register(provider);
+		}
+
+		return providers.length === expected;
 	};
 
 	return {
