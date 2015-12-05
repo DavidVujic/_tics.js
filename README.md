@@ -10,14 +10,16 @@ This is a simple JavaScript helper library for writing web analytics client side
 ##The "it just works" scenario
 Initialize the library and provider:
 
+(you can also provide the init method with a list of providers)
+
 ```javascript
 // initialize the provider
  _tics.gaProvider.init({
     account: my-google-account-id,
     domain: my-google-account-domain
 });
-    
-// add the provider       
+
+// add the provider
  _tics.init(_tics.gaProvider);
 
 // enable basic page tracking
@@ -70,11 +72,11 @@ _tics.functions.add('getMyCustomValue', function (obj) {
 });
 ```
 
-If you don't want the library to perform the defaults, just pass "true" (treated as already provisioned) as a parameter to the add function. 
+If you don't want the library to perform the defaults, just pass "true" (treated as already provisioned) as a parameter to the add function.
 
 ```javascript
 _tics.functions.add('getType', function (obj) {
-    
+
     // do whatever you like here
 
 }, true);
