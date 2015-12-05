@@ -12,7 +12,7 @@ This is a simple JavaScript helper library for writing web analytics client side
 ##The "it just works" scenario
 Initialize the library and provider:
 
-(you can also provide the init method with a list of providers)
+(you can also provide the _tics.init method with a list of providers)
 
 ```javascript
 // initialize the provider
