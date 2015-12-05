@@ -2,7 +2,6 @@ var _tics = (function () {
 	'use strict';
 
 	var providers = null;
-	var helper = null;
 
 	var trackPage = function () {
 		var i;
@@ -16,7 +15,7 @@ var _tics = (function () {
 		var i;
 
 		for (i = 0; i < providers.length; i += 1) {
-			providers[i].track(helper.evTarget(e), helper.ev(e));
+			providers[i].track(_tics.helper.evTarget(e), _tics.helper.ev(e));
 		}
 	};
 
@@ -29,13 +28,13 @@ var _tics = (function () {
 			return;
 		}
 
-		var elements = helper.get(selector);
+		var elements = _tics.helper.get(selector);
 
 		if (!elements || elements.length === 0) {
 			return;
 		}
 
-		helper.addListeners(elements, action, function (e) {
+		_tics.helper.addListeners(elements, action, function (e) {
 			trackEvent(e);
 		});
 	};
@@ -47,7 +46,7 @@ var _tics = (function () {
 	};
 
 	var register = function (obj) {
-		if (!helper.isValidProvider(obj)) {
+		if (!_tics.helper.isValidProvider(obj)) {
 			return;
 		}
 
@@ -58,9 +57,8 @@ var _tics = (function () {
 		providers = [];
 		var i;
 		var expected = 1;
-		helper = _tics.helper;
 
-		if (helper.isArray(provider)) {
+		if (_tics.helper.isArray(provider)) {
 			expected = provider.length;
 			for (i = 0; i < provider.length; i += 1) {
 				register(provider[i]);
