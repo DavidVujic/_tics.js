@@ -1,16 +1,10 @@
-/*global QUnit, _tics, interceptor, calls, logger, testHelper */
+/*global QUnit, _tics, interceptor, testHelper */
 
 (function () {
-	var fake;
-
 	QUnit.module('object initialization');
 
-	QUnit.test('is global object added', function (assert) {
-		assert.ok(_tics, 'ok');
-	});
-
 	QUnit.test('is initialized with one provider', function (assert) {
-		fake = {
+		var fake = {
 			trackPage: function () {},
 			track: function () {}
 		};
@@ -30,44 +24,48 @@
 		assert.strictEqual(_tics.init(fakes), true, 'strictEqual');
 	});
 
+	var calls;
+	var fake;
+	var elm;
+
 	QUnit.module('API tests', {
 		setup: function () {
-			fake = interceptor.add({
+			calls = 0;
+			var beforeFunc = function () {
+				calls += 1;
+			};
+
+			fake = interceptor.create({
 				trackPage: function () {},
 				track: function () {}
-			}, [calls.add, logger.add]);
+			}, ['trackPage', 'track'], beforeFunc);
 
-			testHelper.createInputField('first-name-field');
+			elm = testHelper.createInputField('first-name-field');
+
+			_tics.init(fake);
 		},
 		teardown: function () {
-			fake = null;
 			testHelper.clearAdded();
 		}
 	});
 
 	QUnit.test('track page was called', function (assert) {
-		_tics.init(fake);
 		_tics.page();
 
-		assert.strictEqual(fake.trackPage.calls, 1, 'strictEqual');
+		assert.strictEqual(calls, 1);
 	});
 
-	QUnit.test('track events should not be called until change', function (assert) {
-		_tics.init(fake);
+	QUnit.test('track events was not called by default', function (assert) {
 		_tics.events();
 
-		assert.strictEqual(fake.track.calls, 0, 'strictEqual');
+		assert.equal(calls, 0);
 	});
 
-	QUnit.test('track events was called', function (assert) {
-		_tics.init(fake);
+	QUnit.test('track events called on change', function (assert) {
 		_tics.events();
-
-		var elm = window.document.getElementById('first-name-field');
-		elm.value = 'hello world';
 
 		_tics.helper.trigger('change', elm);
 
-		assert.strictEqual(fake.track.calls, 1, 'strictEqual');
+		assert.equal(calls, 1);
 	});
 }());

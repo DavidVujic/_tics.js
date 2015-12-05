@@ -1,6 +1,6 @@
 {
   "name": "ticsjs",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Programmer friendly analytics",
   "main": "_tics.js",
   "directories": {

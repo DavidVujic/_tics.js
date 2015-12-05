@@ -8,6 +8,8 @@ var testHelper = (function () {
 		input.id = id;
 
 		window.document.getElementsByTagName('body')[0].appendChild(input);
+
+		return window.document.getElementById('first-name-field');
 	};
 
 	var remove = function () {
