@@ -7,19 +7,19 @@ var qunit = require('node-qunit-phantomjs');
 var eslint = require('gulp-eslint');
 
 var files = [
-	'../_tics.js',
-	'../_tics.helper.js',
-	'../_tics.functions.js',
-	'../_tics.gaProvider.js'
+	'_tics.js',
+	'_tics.helper.js',
+	'_tics.functions.js',
+	'_tics.gaProvider.js'
 ];
 
 var testFiles = [
-	'../tests/_tics.helper.tests.js',
-	'../tests/_tics.tests.js',
-	'../tests/calls.js',
-	'../tests/interceptor.js',
-	'../tests/logger.js',
-	'../tests/testHelper.js'
+	'tests/_tics.helper.tests.js',
+	'tests/_tics.tests.js',
+	'tests/calls.js',
+	'tests/interceptor.js',
+	'tests/logger.js',
+	'tests/testHelper.js'
 ];
 
 gulp.task('lint', function () {
@@ -34,17 +34,17 @@ gulp.task('minify', ['lint'], function () {
 	gulp.src(files)
 		.pipe(concat('_tics.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('../'));
+		.pipe(gulp.dest('./'));
 });
 
 gulp.task('qunit', ['minify'], function () {
-	qunit('../tests/testrunner.html', {
+	qunit('tests/testrunner.html', {
 		'verbose': false
 	});
 });
 
 gulp.task('qunit-release', ['qunit'], function () {
-	qunit('../tests/testrunner-release.html', {
+	qunit('tests/testrunner-release.html', {
 		'verbose': false
 	});
 });
