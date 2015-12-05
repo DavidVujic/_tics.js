@@ -1,21 +1,24 @@
-var testHelper = (function (){
+/* exported testHelper */
+var testHelper = (function () {
 
 	var createInput = function (id) {
 		var input = window.document.createElement('input');
-			input.type = 'text';
-			input.className = 'element-added';
-			input.id = id;
+		input.type = 'text';
+		input.className = 'element-added';
+		input.id = id;
 
-			window.document.getElementsByTagName('body')[0].appendChild(input);
+		window.document.getElementsByTagName('body')[0].appendChild(input);
+
+		return window.document.getElementById('first-name-field');
 	};
 
 	var remove = function () {
 		var elementsAdded = window.document.querySelectorAll('.element-added');
-			var i;
+		var i;
 
-			for(i = 0; i < elementsAdded.length; i += 1) {
-				elementsAdded[i].parentNode.removeChild(elementsAdded[i]);
-			}
+		for (i = 0; i < elementsAdded.length; i += 1) {
+			elementsAdded[i].parentNode.removeChild(elementsAdded[i]);
+		}
 	};
 
 	return {
