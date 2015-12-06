@@ -13,6 +13,10 @@ var files = [
 	'src/_tics.gaProvider.js'
 ];
 
+var addOnFiles = [
+	'src/add-ons/_tics.cms.js'
+];
+
 var testFiles = [
 	'tests/_tics.helper.tests.js',
 	'tests/_tics.tests.js',
@@ -20,7 +24,7 @@ var testFiles = [
 ];
 
 gulp.task('lint', function () {
-	var allFiles = files.concat(testFiles);
+	var allFiles = files.concat(testFiles).concat(addOnFiles);
 	return gulp.src(allFiles)
 		.pipe(eslint())
 		.pipe(eslint.format())
@@ -30,6 +34,11 @@ gulp.task('lint', function () {
 gulp.task('minify', ['lint'], function () {
 	gulp.src(files)
 		.pipe(concat('_tics.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('build'));
+
+	gulp.src(addOnFiles)
+		.pipe(concat('_tics.cms.min.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('build'));
 });

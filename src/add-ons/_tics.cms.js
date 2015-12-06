@@ -26,7 +26,7 @@ _tics.cms = (function () {
 		if (!names) {
 			return null;
 		}
-		
+
 		for (i = 0; i < names.length; i += 1) {
 			funcName = findFuncName(names[i], query);
 		}
@@ -35,10 +35,10 @@ _tics.cms = (function () {
 	};
 
 	var getClassNamesFrom = function (elm) {
-		if(!elm || !elm.className) {
+		if (!elm || !elm.className) {
 			return null;
 		}
-		
+
 		return elm.className.split(' ');
 	};
 
