@@ -3,7 +3,7 @@
 <html>
 
 <head>
-	<link href="two-column.css" rel="stylesheet" />
+	<link href="style/two-column.css" rel="stylesheet" />
 	<title>an example</title>
 </head>
 
@@ -36,12 +36,12 @@
 
 				<label for="lastname">Last name</label>
 				<br />
-				<input type="text" id="lastname" name="lastname" />
+				<input type="text" id="lastname" name="lastname" class="analyze-custom-getValue" />
 				<br />
 
 				<label for="amount">Amount</label>
 				<br />
-				<input type="text" id="amount" name="amount" value="100" />
+				<input type="text" id="amount" name="amount" value="100" class="analyze-custom-getRelativeChange" />
 				<br />
 
 				<label for="field-type">Type</label>
@@ -74,17 +74,15 @@
 		</div>
 	</div>
 
-	<script src="jquery.js"></script>
+	<script src="js/vendor/jquery.js"></script>
 	<script src="/build/_tics.min.js"></script>
-	<script src="_tics.fake.js"></script>
+	<script src="/build/_tics.cms.min.js"></script>
+	<script src="js/_tics.fake.js"></script>
 	<script>
 		/*global _tics: true */
 		(function($) {
 
 			var decorateElements = function() {
-				$('#lastname').attr('data-val-analyze-custom', 'getValue');
-				$('#amount').attr('data-val-analyze-custom', 'getRelativeChange');
-				$('#amount').attr('data-val-original-value', $('#amount').val());
 				$('[data-section]').find('a').attr('data-val-analyze-custom', 'getItemInSection');
 
 				$('#field-type').attr('data-val-analyze-custom', 'getType');
@@ -101,6 +99,8 @@
 				decorateElements();
 
 				disableExampleLinksForThisDemo();
+
+				_tics.cms.prepareForm();
 
 				// this example use a fake implementation of the Google Analytics script,
 				// a real world example would have a script tag for the real script.
