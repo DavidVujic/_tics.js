@@ -31,7 +31,7 @@ gulp.task('minify', ['lint'], function () {
 	gulp.src(files)
 		.pipe(concat('_tics.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('/build'));
+		.pipe(gulp.dest('build'));
 });
 
 gulp.task('qunit', ['minify'], function () {
