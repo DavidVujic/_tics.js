@@ -46,7 +46,7 @@
 
 				<label for="field-type">Type</label>
 				<br />
-				<input type="text" id="field-type" name="field-type" />
+				<input type="text" id="field-type" name="field-type" class="analyze-custom-getType"/>
 				<br/>
 
 				<label for="field-like-js">Likes JavaScript</label>
@@ -84,8 +84,6 @@
 
 			var decorateElements = function() {
 				$('[data-section]').find('a').attr('data-val-analyze-custom', 'getItemInSection');
-
-				$('#field-type').attr('data-val-analyze-custom', 'getType');
 			};
 
 			var disableExampleLinksForThisDemo = function() {
@@ -95,7 +93,7 @@
 			};
 
 			$(document).ready(function() {
-				// this demo decorates the elements using JavaScript instead of adding attributes in the html code.
+				// this demo decorates link elements using JavaScript instead of adding attributes in the html code.
 				decorateElements();
 
 				disableExampleLinksForThisDemo();
