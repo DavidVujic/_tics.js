@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<link href="style/two-column.css" rel="stylesheet" />
+	<title>an example</title>
+</head>
+
+<body>
+	<input type="hidden" id="account-for-analytics" value="my-little-example" />
+	<input type="hidden" id="domain-for-analytics" value="my-domain.se" />
+
+	<div id="wrap">
+		<div id="header">
+			<h1>My Logo</h1>
+			<a href="#">Just a link</a>
+		</div>
+
+		<div id="nav" data-section="Navigation">
+			<ul>
+				<li data-item><a name="menubutton1" href="/subpage1/">Option 1</a></li>
+				<li data-item><a href="/subpage2/">Option 2</a></li>
+			</ul>
+		</div>
+
+		<div id="main" data-section="Column 1">
+			<h2>Column 1</h2>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit... <a href="#">Hello world</a></p>
+			<p>
+
+				<label for="firstname">First name</label>
+				<br />
+				<input type="text" id="firstname" name="firstname" />
+				<br />
+
+				<label for="lastname">Last name</label>
+				<br />
+				<input type="text" id="lastname" name="lastname" class="analyze-custom-getValue" />
+				<br />
+
+				<label for="amount">Amount</label>
+				<br />
+				<input type="text" id="amount" name="amount" value="100" class="analyze-custom-getRelativeChange" />
+				<br />
+
+				<label for="field-type">Type</label>
+				<br />
+				<input type="text" id="field-type" name="field-type" class="analyze-custom-getType"/>
+				<br/>
+
+				<label for="field-like-js">Likes JavaScript</label>
+				<br />
+				<select id="field-like-js" name="field-like-js">
+					<option value="yes">Yes</option>
+					<option value="no">No</option>
+				</select>
+
+			</p>
+		</div>
+		<div id="sidebar" data-section="Column 2">
+			<h2>Column 2</h2>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</p>
+			<ul>
+				<li data-item><a name="Link1" href="/page1/">Link 1</a></li>
+				<li data-item><a name="Link2" href="/page2/">Link 2</a></li>
+			</ul>
+		</div>
+
+		<div id="footer">
+			<p>Footer</p>
+			events are printed out in the browser console, using console.log.
+			<div class="log-container logger"></div>
+		</div>
+	</div>
+
+	<script src="js/vendor/jquery.js"></script>
+	<script src="/build/_tics.min.js"></script>
+	<script src="/build/_tics.cms.min.js"></script>
+	<script src="js/_tics.fake.js"></script>
+	<script>
+		/*global _tics: true */
+		(function($) {
+
+			var decorateElements = function() {
+				$('[data-section]').find('a').attr('data-val-analyze-custom', 'getItemInSection');
+			};
+
+			var disableExampleLinksForThisDemo = function() {
+				$('a').on('click', function() {
+					return false;
+				});
+			};
+
+			$(document).ready(function() {
+				// this demo decorates link elements using JavaScript instead of adding attributes in the html code.
+				decorateElements();
+
+				disableExampleLinksForThisDemo();
+
+				_tics.cms.prepareForm();
+
+				// this example use a fake implementation of the Google Analytics script,
+				// a real world example would have a script tag for the real script.
+				window.ga = _tics.fake;
+
+				// add a custom function and disable the default event handling, by passing the true parameter.
+				_tics.functions.add('getType', function(obj) {
+
+					obj.service('send', 'hello world');
+					obj.service('send', obj.elm.type);
+				}, true);
+
+				// initialize the Google Analytics provider with required data.
+				_tics.gaProvider.init({
+					account: $('#account-for-analytics').val(),
+					domain: $('#domain-for-analytics').val()
+				});
+
+				// initialize _tics with the selected provider
+				_tics.init(_tics.gaProvider);
+
+				// enable default page tracking
+				_tics.page();
+
+				// enable event tracing for the change and click events of form fields, links and buttons.
+				_tics.events();
+
+				// add your custom event
+				_tics.customEvent('select', 'blur');
+			});
+		}(jQuery));
+	</script>
+</body>
+
+</html>

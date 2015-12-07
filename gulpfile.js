@@ -7,23 +7,24 @@ var qunit = require('node-qunit-phantomjs');
 var eslint = require('gulp-eslint');
 
 var files = [
-	'_tics.js',
-	'_tics.helper.js',
-	'_tics.functions.js',
-	'_tics.gaProvider.js'
+	'src/_tics.js',
+	'src/_tics.helper.js',
+	'src/_tics.functions.js',
+	'src/_tics.gaProvider.js'
+];
+
+var addOnFiles = [
+	'src/add-ons/_tics.cms.js'
 ];
 
 var testFiles = [
 	'tests/_tics.helper.tests.js',
 	'tests/_tics.tests.js',
-	'tests/calls.js',
-	'tests/interceptor.js',
-	'tests/logger.js',
-	'tests/testHelper.js'
+	'tests/lib/testHelper.js'
 ];
 
 gulp.task('lint', function () {
-	var allFiles = files.concat(testFiles);
+	var allFiles = files.concat(testFiles).concat(addOnFiles);
 	return gulp.src(allFiles)
 		.pipe(eslint())
 		.pipe(eslint.format())
@@ -34,17 +35,22 @@ gulp.task('minify', ['lint'], function () {
 	gulp.src(files)
 		.pipe(concat('_tics.min.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./'));
+		.pipe(gulp.dest('build'));
+
+	gulp.src(addOnFiles)
+		.pipe(concat('_tics.cms.min.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('build'));
 });
 
 gulp.task('qunit', ['minify'], function () {
-	qunit('tests/testrunner.html', {
+	qunit('tests/runners/testrunner.html', {
 		'verbose': false
 	});
 });
 
 gulp.task('qunit-release', ['qunit'], function () {
-	qunit('tests/testrunner-release.html', {
+	qunit('tests/runners/testrunner-release.html', {
 		'verbose': false
 	});
 });
