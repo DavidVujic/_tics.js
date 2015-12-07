@@ -82,9 +82,11 @@ _tics.helper = (function () {
 				return false;
 			}
 
-			var node = elm.getAttributeNode(attrName);
+			if (!elm.getAttribute(attrName)) {
+				return false;
+			}
 
-			return (node && node.name === attrName);
+			return true;
 		};
 
 		var getClosestElement = function (elm, attributeName) {
@@ -117,19 +119,10 @@ _tics.helper = (function () {
 			trigger: triggerEvent,
 			addListeners: addListenersFor,
 			getClosest: getClosestElement,
-			isArray: isArray
+			isArray: isArray,
+			hasAttribute: hasAttribute
 		};
 	}());
-
-	var hasAttribute = function (elm, attrName) {
-		if (elm.nodeType !== 1) {
-			return false;
-		}
-
-		var node = elm.getAttributeNode(attrName);
-
-		return (node && node.name === attrName);
-	};
 
 	var startsWith = function (str, suffix) {
 		return str.indexOf(suffix) === 0;
@@ -164,7 +157,7 @@ _tics.helper = (function () {
 	};
 
 	var getValueForImage = function (elm) {
-		if (isImage(elm) && hasAttribute(elm, 'alt')) {
+		if (isImage(elm) && almostvanilla.hasAttribute(elm, 'alt')) {
 			return elm.getAttribute('alt');
 		}
 
