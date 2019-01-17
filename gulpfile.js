@@ -31,7 +31,7 @@ gulp.task('lint', function () {
 		.pipe(eslint.failAfterError());
 });
 
-gulp.task('minify', ['lint'], function () {
+gulp.task('minify', gulp.series('lint'), function () {
 	gulp.src(files)
 		.pipe(concat('_tics.min.js'))
 		.pipe(uglify())
@@ -43,16 +43,16 @@ gulp.task('minify', ['lint'], function () {
 		.pipe(gulp.dest('build'));
 });
 
-gulp.task('qunit', ['minify'], function () {
+gulp.task('qunit', gulp.series('minify'), function () {
 	qunit('tests/runners/testrunner.html', {
 		'verbose': false
 	});
 });
 
-gulp.task('qunit-release', ['qunit'], function () {
+gulp.task('qunit-release', gulp.series('qunit'), function () {
 	qunit('tests/runners/testrunner-release.html', {
 		'verbose': false
 	});
 });
 
-gulp.task('default', ['lint', 'minify', 'qunit', 'qunit-release']);
+gulp.task('default', gulp.series('lint', 'minify', 'qunit', 'qunit-release'));
