@@ -9,7 +9,7 @@ This is a simple JavaScript helper library for writing web analytics client side
 
 #Usage#
 
-##The "it just works" scenario
+## The "it just works" scenario ##
 Initialize the library and provider:
 
 (you can also provide the _tics.init method with a list of providers)
@@ -31,7 +31,7 @@ _tics.page();
 _tics.events();
 ```
 
-##The "couldn't you just do this?" scenario
+## The "couldn't you just do this?" scenario ##
 If you want to grab the actual value of a specific form field, decorate your element with an attribute (data-val-analyze-custom):
 ```html
 <input type="text" id="my-field" name="my-field" data-val-analyze-custom="getValue" />
@@ -65,7 +65,7 @@ This usage is for the event tracking features of **_tics.js**:
 _tics.events();
 ```
 
-##The "extra special for you" scenario
+## The "extra special for you" scenario ##
 The **getValue**, **getRelativeChange** and **getItemInSection** functions are included in **_tics.js**. Add your custom function by appending them to the library. Use your favorite library for traversing the DOM if you like.
 
 ```javascript
