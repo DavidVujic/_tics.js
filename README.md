@@ -7,7 +7,7 @@ This is a simple JavaScript helper library for writing web analytics client side
 
 **_tics.js** is intended to give you a head start with web analytics and it supports the Google Universal Analytics JavaScript library out of the box. Included is a Google Analytics provider, written as a separate module. It can easily be replaced by a custom provider consuming your favorite web analytics tool.
 
-#Usage#
+# Usage #
 
 ## The "it just works" scenario ##
 Initialize the library and provider:
