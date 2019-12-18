@@ -1,4 +1,4 @@
-/*global QUnit, _tics */
+/*global _tics */
 
 (function () {
 

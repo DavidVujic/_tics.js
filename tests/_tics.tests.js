@@ -1,4 +1,4 @@
-/*global QUnit, _tics, interceptor, testHelper */
+/*global _tics, interceptor, testHelper */
 
 (function () {
 	QUnit.module('object initialization');

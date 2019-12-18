@@ -18,10 +18,8 @@
 		]
 	},
 	"env": {
-		"browser": true
-	},
-	"globals": {
-		"qunit": 1
+		"browser": true,
+		"qunit": true
 	},
 	"extends": [
 		"eslint:recommended"

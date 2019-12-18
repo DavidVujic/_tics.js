@@ -1,5 +1,3 @@
-/*global window:true */
-
 var _tics = _tics || {};
 
 _tics.helper = (function () {
@@ -260,6 +258,7 @@ _tics.helper = (function () {
 			return false;
 		}
 
+		// eslint-disable-next-line no-prototype-builtins
 		return obj.hasOwnProperty('data') && obj.hasOwnProperty('isProvisioned');
 	};
 

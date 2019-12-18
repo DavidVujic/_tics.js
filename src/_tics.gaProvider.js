@@ -1,5 +1,3 @@
-/*global window:true */
-
 var _tics = _tics || {};
 
 _tics.gaProvider = (function () {

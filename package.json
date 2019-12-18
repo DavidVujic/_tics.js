@@ -29,10 +29,10 @@
   "devDependencies": {
     "gulp": "4.x",
     "gulp-concat": "2.x",
-    "gulp-eslint": "5.x",
+    "gulp-eslint": "6.x",
     "gulp-uglify": "3.x",
     "node-qunit-phantomjs": "2.x",
-    "qunitjs": "2.x"
+    "qunit": "2.x"
   },
   "engines": {
     "node": ">=10.15.0"
